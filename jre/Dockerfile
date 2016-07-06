@@ -19,8 +19,9 @@ ENV PATH $PATH:/opt/jre/bin
 
 # Download and add the pem to the trust store
 RUN mkdir -p /opt &&\
-    curl -jkLH "Cookie: oraclelicense=accept-securebackup-cookie" -o java.tar.gz\
-      ${java.download.url}/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz &&\
+    curl -jkLH "Cookie: oraclelicense=accept-securebackup-cookie" \
+	-o java.tar.gz\
+	http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz &&\
     gunzip -c java.tar.gz | tar -xf - -C /opt && rm -f java.tar.gz &&\
     ln -s /opt/jre1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jre &&\
     rm -rf /opt/jre/lib/plugin.jar \
@@ -40,12 +41,13 @@ RUN mkdir -p /opt &&\
          /opt/jre/lib/amd64/libjavafx*.so \
          /opt/jre/lib/amd64/libjfx*.so &&\
     sed -e "s|export PATH=|export PATH=/opt/jre/bin:|" -i /etc/profile &&\
-    curl -s ${letsencrypt.repo}/lets-encrypt-x1-cross-signed.pem -o /lets-encrypt-x1-cross-signed.pem &&\
-    curl -s ${letsencrypt.repo}/lets-encrypt-x2-cross-signed.pem -o /lets-encrypt-x2-cross-signed.pem &&\
-    curl -s ${letsencrypt.repo}/lets-encrypt-x3-cross-signed.pem -o /lets-encrypt-x3-cross-signed.pem &&\
-    curl -s ${letsencrypt.repo}/lets-encrypt-x4-cross-signed.pem -o /lets-encrypt-x4-cross-signed.pem &&\
+    curl -s https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.pem -o /lets-encrypt-x1-cross-signed.pem &&\
+    curl -s https://letsencrypt.org/certs/lets-encrypt-x2-cross-signed.pem -o /lets-encrypt-x2-cross-signed.pem &&\
+    curl -s https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem -o /lets-encrypt-x3-cross-signed.pem &&\
+    curl -s https://letsencrypt.org/certs/lets-encrypt-x4-cross-signed.pem -o /lets-encrypt-x4-cross-signed.pem &&\
     /opt/jre/bin/keytool -trustcacerts -keystore /opt/jre/lib/security/cacerts -storepass changeit -noprompt -importcert -alias lets-encrypt-x1-cross-signed -file /lets-encrypt-x1-cross-signed.pem &&\
     /opt/jre/bin/keytool -trustcacerts -keystore /opt/jre/lib/security/cacerts -storepass changeit -noprompt -importcert -alias lets-encrypt-x2-cross-signed -file /lets-encrypt-x2-cross-signed.pem &&\
     /opt/jre/bin/keytool -trustcacerts -keystore /opt/jre/lib/security/cacerts -storepass changeit -noprompt -importcert -alias lets-encrypt-x3-cross-signed -file /lets-encrypt-x3-cross-signed.pem &&\
     /opt/jre/bin/keytool -trustcacerts -keystore /opt/jre/lib/security/cacerts -storepass changeit -noprompt -importcert -alias lets-encrypt-x4-cross-signed -file /lets-encrypt-x4-cross-signed.pem &&\
     rm -f /*.pem
+
