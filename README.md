@@ -10,7 +10,10 @@ There's three images:
 
 In most instances, you'll want to use area51/java:serverjre-8 for server side applications.
 
-Latest version is running Java 8 update 92 build 14
+As of July 27 2015, the latest version is running Java 8 update 102 build 14
 
 Note: This image is for Intel/AMD processors (i.e. most docker installations). For the Raspberry PI please see the area51/rpi-java image
+
+Historical versions:
+* Java 8 update 92 build 14 is available by appending .92 to the tags, e.g. area51/java:serverjre-8.92
 
