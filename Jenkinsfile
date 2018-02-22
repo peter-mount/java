@@ -6,7 +6,9 @@ properties( [
   buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '7', numToKeepStr: '10')),
   disableConcurrentBuilds(),
   disableResume(),
-  pipelineTriggers([cron('H H * * *')])
+  pipelineTriggers([
+    upstream('/Public/Alpine/master')
+  ])
 ])
 
 node( 'Dev_AMD64_Amsterdam' ) {
