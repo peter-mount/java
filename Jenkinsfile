@@ -12,23 +12,20 @@ properties( [
 ])
 
 node( 'Dev_AMD64_Amsterdam' ) {
-  stage( 'Checkout' ) {
+  stage( 'Prepare' ) {
     checkout scm
-  }
-
-  stage( 'Prepare Build' ) {
     sh 'docker pull area51/alpine:latest'
   }
 
   images.each {
-    image -> stage( 'Build Java8 ' + image ) {
+    image -> stage( 'Java8 ' + image ) {
       sh 'docker build -t ' + imageName + ':' + image + '-8 -f ' + image + '/Dockerfile ' + image
     }
   }
 
-  images.each {
-    image -> stage( 'Publish Java8 ' + image ) {
-      sh 'docker push ' + imageName + ':' + image + '-8'
+  stage( 'Publish' ) {
+    images.each {
+      image -> sh 'docker push ' + imageName + ':' + image + '-8'
     }
   }
 
