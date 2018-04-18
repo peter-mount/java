@@ -11,10 +11,10 @@ FROM area51/alpine
 MAINTAINER Peter Mount <peter@retep.org>
 
 ENV JAVA_VERSION_MAJOR 8
-ENV JAVA_VERSION_MINOR 131
+ENV JAVA_VERSION_MINOR 172
 ENV JAVA_VERSION_BUILD 11
 ENV JAVA_PACKAGE       server-jre
-ENV URL_ELEMENT        d54c1d3a095b4ff2b6607d096fa80163
+ENV URL_ELEMENT        a58eab1ec242421181065cdc37240b08
 
 ENV PATH $PATH:/opt/jdk/bin
 
@@ -55,4 +55,3 @@ RUN mkdir -p /opt &&\
     /opt/jdk/bin/keytool -trustcacerts -keystore /opt/jdk/jre/lib/security/cacerts -storepass changeit -noprompt -importcert -alias lets-encrypt-x3-cross-signed -file /lets-encrypt-x3-cross-signed.pem &&\
     /opt/jdk/bin/keytool -trustcacerts -keystore /opt/jdk/jre/lib/security/cacerts -storepass changeit -noprompt -importcert -alias lets-encrypt-x4-cross-signed -file /lets-encrypt-x4-cross-signed.pem &&\
     rm -f /*.pem
-
