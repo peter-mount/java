@@ -18,7 +18,7 @@ node( 'Dev_AMD64_Amsterdam' ) {
   }
 
   images.each {
-    image -> stage( 'Java8 ' + image ) {
+    image -> stage( image ) {
       sh 'docker build -t ' + imageName + ':' + image + '-8 -f ' + image + '/Dockerfile ' + image
     }
   }
