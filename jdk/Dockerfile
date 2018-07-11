@@ -45,28 +45,5 @@ RUN mkdir -p /opt &&\
 	/opt/jdk/jre/lib/amd64/libgstreamer-lite.so \
 	/opt/jdk/jre/lib/amd64/libjavafx*.so \
 	/opt/jdk/jre/lib/amd64/libjfx*.so &&\
-    sed -e "s|export PATH=|export PATH=/opt/jdk/bin:|" -i /etc/profile &&\
-    curl -s https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.pem -o /lets-encrypt-x1-cross-signed.pem &&\
-    curl -s https://letsencrypt.org/certs/lets-encrypt-x2-cross-signed.pem -o /lets-encrypt-x2-cross-signed.pem &&\
-    curl -s https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem -o /lets-encrypt-x3-cross-signed.pem &&\
-    curl -s https://letsencrypt.org/certs/lets-encrypt-x4-cross-signed.pem -o /lets-encrypt-x4-cross-signed.pem &&\
-    /opt/jdk/bin/keytool \
-	-trustcacerts -keystore /opt/jdk/jre/lib/security/cacerts \
-	-storepass changeit -noprompt -importcert \
-	-alias lets-encrypt-x1-cross-signed \
-	-file /lets-encrypt-x1-cross-signed.pem &&\
-    /opt/jdk/bin/keytool \
-	-trustcacerts -keystore /opt/jdk/jre/lib/security/cacerts \
-	-storepass changeit -noprompt -importcert \
-	-alias lets-encrypt-x2-cross-signed \
-	-file /lets-encrypt-x2-cross-signed.pem &&\
-    /opt/jdk/bin/keytool -trustcacerts -keystore /opt/jdk/jre/lib/security/cacerts \
-	-storepass changeit -noprompt -importcert \
-	-alias lets-encrypt-x3-cross-signed \
-	-file /lets-encrypt-x3-cross-signed.pem &&\
-    /opt/jdk/bin/keytool \
-	-trustcacerts -keystore /opt/jdk/jre/lib/security/cacerts \
-	-storepass changeit -noprompt -importcert \
-	-alias lets-encrypt-x4-cross-signed \
-	-file /lets-encrypt-x4-cross-signed.pem &&\
-    rm -f /*.pem
+    sed -e "s|export PATH=|export PATH=/opt/jdk/bin:|" -i /etc/profile
+
