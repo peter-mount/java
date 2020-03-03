@@ -1,3 +1,9 @@
+# Deprecated
+
+This project is now deprecated - please use the official openjdk docker images
+
+## Original description
+
 Based on jeanblanchard/java these images contain essential additons not found in the normal JDK/JRE's.
 
 At the current moment in time this consists of the LetsEncrypt CA Certs in the trust store, necessary for ourselves as we use LetsEncrypt ourselves and the standard JDK/JRE's don't support them yet.
